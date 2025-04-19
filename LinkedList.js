@@ -124,7 +124,42 @@ export class LinkedList {
 
     if (this.head === this.tail) this.tail = node
   }
+
   // removeAt(index) that removes the node at the given index.
+  removeAt (index) {
+    // if no nodes
+    if (this.size === 0) return null
+
+    // if out of bounds
+    if (index + 1 > this.size || index < 0) return null
+
+    // if this is the last node
+    if (index === this.size - 1) return this.pop()
+
+    // if there is only 1 node
+    if (this.size === 1 && index === 0) {
+      const node = this.head
+      this.head = null
+      this.tail = null
+      this.#size--
+      return node
+    }
+
+    const node = this.at(index)
+    const nextNode = this.at(index + 1)
+    node.next = null
+    this.#size--
+    // if head node
+    if (node === this.head) {
+      this.head = nextNode
+      return node
+    }
+    // if its a node in-between
+    const prevNode = this.at(index - 1)
+    prevNode.next = nextNode
+
+    return node
+  }
 
   // toString represents your LinkedList objects as strings,
   //  so you can print them out and preview them in the console.
