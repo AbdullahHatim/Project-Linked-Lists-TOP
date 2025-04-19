@@ -3,10 +3,11 @@ import { Node } from './Node.js'
 export class LinkedList {
   head = null
   tail = null
+  #size = 0
   // append(value) adds a new node containing value to the end of the list
   append (value) {
     const node = new Node(value)
-
+    this.#size++
     // If The List is empty make the node The Head Node & The Tail Node
     if (this.head === null) {
       this.head = node
@@ -28,7 +29,7 @@ export class LinkedList {
   // prepend(value) adds a new node containing value to the start of the list
   prepend (value) {
     const node = new Node(value)
-
+    this.#size++
     // If The List is empty make the node The Head Node & The Tail Node
     if (this.head === null) {
       this.head = node
@@ -49,23 +50,7 @@ export class LinkedList {
 
   // size returns the total number of nodes in the list
   get size () {
-    let next = this.head
-    let size = 0
-    while (next !== null) {
-      next = next.next
-      size++
-    }
-    return size
-  }
-
-  // head returns the first node in the list
-  getHead () {
-    return this.head
-  }
-
-  // tail returns the last node in the list
-  getTail () {
-    return this.tail
+    return this.#size
   }
 
   // at(index) returns the node at the given index
@@ -86,6 +71,7 @@ export class LinkedList {
     this.tail = this.at(this.size - 2)
     if (this.tail) this.tail.next = null
     if (this.head === node) this.head = null
+    if (node) this.#size--
     return node
   }
 
@@ -127,6 +113,8 @@ export class LinkedList {
 
     const atIndex = this.at(index)
     if (!atIndex) return
+    if (index === this.size - 1) { this.append(value); return }
+    this.#size++
 
     const next = atIndex.next
     if (next) {
