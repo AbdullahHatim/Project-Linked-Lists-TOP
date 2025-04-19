@@ -109,20 +109,16 @@ export class LinkedList {
 
   // insertAt(value, index) that inserts a new node with the provided value at the given index.
   insertAt (value, index) {
+    if (index < 0 || index > this.size) return
+    if (index === this.size) return this.append(value)
+    if (index === 0) return this.prepend(value)
+
     const node = new Node(value)
-
-    const atIndex = this.at(index)
-    if (!atIndex) return
-    if (index === this.size - 1) { this.append(value); return }
+    const prevNode = this.at(index - 1)
+    const nextNode = this.at(index)
     this.#size++
-
-    const next = atIndex.next
-    if (next) {
-      node.next = next
-    }
-    atIndex.next = node
-
-    if (this.head === this.tail) this.tail = node
+    if (prevNode) prevNode.next = node
+    if (nextNode) node.next = nextNode
   }
 
   // removeAt(index) that removes the node at the given index.
