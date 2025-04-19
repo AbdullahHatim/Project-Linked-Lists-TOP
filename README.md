@@ -1,5 +1,7 @@
 # Project: Linked Lists
 
+`Time to complete: 5~ hrs`
+
 `Yes this is AI generated, Thought AI README is better than no README as i had nothing to say`
 
 This project provides a basic implementation of a singly linked list in JavaScript, based on the concepts taught in The Odin Project's curriculum on linked lists.
